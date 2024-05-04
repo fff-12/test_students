@@ -23,26 +23,39 @@ class MainWin(QWidget):
  
         #Встановлює зв'язки між елементами
         self.connects()
- 
+
         # старт:
         self.show()
  
     def initUI(self):
         ''' створює графічні елементи '''
-        pass
+        self.btn_next = QPushButton(txt_next)
+        self.hello_text = QLabel(txt_hello)
+        self.instruction = QLabel(txt_instruction)
+ 
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.hello_text, alignment = Qt.AlignLeft)
+        self.layout.addWidget(self.instruction, alignment = Qt.AlignLeft)
+        self.layout.addWidget(self.btn_next, alignment = Qt.AlignCenter)
+        self.setLayout(self.layout)
  
  
     def next_click(self):
-        pass
+        self.tw = TestWin()
+        self.hide()
  
     def connects(self):
-        pass
+        self.btn_next.clicked.connect(self.next_click)
  
     ''' встановлює, як виглядатиме вікно (напис, розмір, місце) '''
     def set_appear(self):
-        pass
+        self.setWindowTitle(txt_title)
+        self.resize(win_width, win_height)
+        self.move(win_x, win_y)
  
 def main():
-    pass
+    app = QApplication([])
+    mw = MainWin()
+    app.exec_()
  
 main()
