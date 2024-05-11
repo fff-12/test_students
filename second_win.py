@@ -62,7 +62,7 @@ class TestWin(QWidget):
 
        self.l_line = QVBoxLayout()
        self.r_line = QVBoxLayout()
-       self.h_line = QVBoxLayout()
+       self.h_line = QHBoxLayout()
  
        self.r_line.addWidget(self.text_timer, alignment = Qt.AlignCenter)
 
@@ -92,23 +92,56 @@ class TestWin(QWidget):
 
  
     def timer_test(self):
-      pass
+      global time 
+      time = QTime(0,0,15)
+      self.timer = QTimer()
+      self.timer.timeout.connect(self.timer1Event)
+      self.timer.start(1000)
  
     def timer_sits(self):
-      pass
+      global time
+      time = QTime(0,0,30)
+      self.timer = QTimer()
+      self.timer.timeout.connect(self.timer2Event)
+      self.timer.start(1000)
  
     def timer_final(self):
-      pass
+      global time
+      time = QTime(0,1,0)
+      self.timer = QTimer()
+      self.timer.timeout.connect(self.timer3Event)
+      self.timer.start(1000)
  
     def timer1Event(self):
-      pass
- 
+      global time 
+      time = time.addSecs(-1)
+      self.text_timer.setText(time.toString('hh:mm:ss'))
+      self.text_timer.setFont(QFont('Times', 36, QFont.Bold))
+      self.text_timer.setStyleSheet('color: rgb(0,0,0)')
+      if time.toString('hh:mm:ss') == '00:00:00':
+         self.timer.stop()
+
     def timer2Event(self):
-      pass
+      global time 
+      time = time.addSecs(-1.5)
+      self.text_timer.setText(time.toString('hh:mm:ss')[6:8])
+      self.text_timer.setFont(QFont('Times', 36, QFont.Bold))
+      self.text_timer.setStyleSheet('color: rgb(0,0,0)')
+      if time.toString('hh:mm:ss') == '00:00:00':
+         self.timer.stop()
  
     def timer3Event(self):
-      pass
+      global time 
+      time = time.addSecs(-1)
+      self.text_timer.setText(time.toString('hh:mm:ss'))
+      self.text_timer.setFont(QFont('Times', 36, QFont.Bold))
+      self.text_timer.setStyleSheet('color: rgb(0,0,0)')
+      if time.toString('hh:mm:ss') == '00:00:00':
+         self.timer.stop()
  
     def connects(self):
        self.button_next.clicked.connect(self.next_click)
+       self.button_test1.clicked.connect(self.timer_test)
+       self.button_test2.clicked.connect(self.timer_sits)
+       self.button_test3.clicked.connect(self.timer_final)
 
