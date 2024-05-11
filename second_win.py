@@ -87,7 +87,7 @@ class TestWin(QWidget):
 
     def next_click(self):
       self.hide()
-      self.exp = Experimet(int(self.line_age.text()), self.text_test1.text(), self.text_test2.text(), self.text_test3.text())
+      self.exp = Experimet(int(self.line_age.text()), self.line_test1.text(), self.line_test2.text(), self.line_test3.text())
       self.fw = FinalWin(self.exp)
 
  
@@ -103,7 +103,7 @@ class TestWin(QWidget):
       time = QTime(0,0,30)
       self.timer = QTimer()
       self.timer.timeout.connect(self.timer2Event)
-      self.timer.start(1000)
+      self.timer.start(1500)
  
     def timer_final(self):
       global time
@@ -123,7 +123,7 @@ class TestWin(QWidget):
 
     def timer2Event(self):
       global time 
-      time = time.addSecs(-1.5)
+      time = time.addSecs(-1)
       self.text_timer.setText(time.toString('hh:mm:ss')[6:8])
       self.text_timer.setFont(QFont('Times', 36, QFont.Bold))
       self.text_timer.setStyleSheet('color: rgb(0,0,0)')
@@ -134,8 +134,13 @@ class TestWin(QWidget):
       global time 
       time = time.addSecs(-1)
       self.text_timer.setText(time.toString('hh:mm:ss'))
+      if int(time.toString('hh:mm:ss')[6:8]) >= 45:
+         self.text_timer.setStyleSheet('color: rgb(0,255,0)')
+      if int(time.toString('hh:mm:ss')[6:8]) < 45:
+         self.text_timer.setStyleSheet('color: rgb(0,0,0)')
+      if int(time.toString('hh:mm:ss')[6:8]) <= 15:
+         self.text_timer.setStyleSheet('color: rgb(0,255,0)')
       self.text_timer.setFont(QFont('Times', 36, QFont.Bold))
-      self.text_timer.setStyleSheet('color: rgb(0,0,0)')
       if time.toString('hh:mm:ss') == '00:00:00':
          self.timer.stop()
  
